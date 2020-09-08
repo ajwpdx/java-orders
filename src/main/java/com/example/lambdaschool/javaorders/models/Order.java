@@ -3,6 +3,8 @@ package com.example.lambdaschool.javaorders.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders")
@@ -16,12 +18,16 @@ public class Order {
     private double advanceamount;
 
     @ManyToOne
-    @JoinColumn(name = "custcode",
-            nullable = false)
-    @JsonIgnoreProperties("orders")
+    @JoinColumn(name = "custcode", nullable = false)
     private Customer customer;
 
     private String orderdescription;
+
+    @ManyToMany
+    @JoinTable(name = "orderpayment",
+            joinColumns = @JoinColumn(name = "orderid"),
+            inverseJoinColumns = @JoinColumn(name = "paymentid"))
+    private Set<Payment> payments = new HashSet<>();
 
     public Order() {
 
