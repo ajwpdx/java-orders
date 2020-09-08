@@ -1,6 +1,14 @@
 package com.lambdaschool.crudyorders.models;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,10 +27,10 @@ public class Agent {
     private String country;
 
     @OneToMany(mappedBy = "agent", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = "agent")
     private List<Customer> customers = new ArrayList<>();
 
-    public Agent(long agentcode, String agentname, String workingarea, double commission, String phone, String country) {
-        this.agentcode = agentcode;
+    public Agent(String agentname, String workingarea, double commission, String phone, String country) {
         this.agentname = agentname;
         this.workingarea = workingarea;
         this.commission = commission;
@@ -84,4 +92,4 @@ public class Agent {
 
 
 }
-}
+

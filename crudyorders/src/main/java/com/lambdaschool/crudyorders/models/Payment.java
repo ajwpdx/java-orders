@@ -21,6 +21,11 @@ public class Payment {
     public Payment() {
     }
 
+    public Payment(String type)
+    {
+        this.type = type;
+    }
+
     public long getPaymentid() {
         return paymentid;
     }
@@ -44,4 +49,6 @@ public class Payment {
     public void setOrders(Set<Order> orders) {
         this.orders = orders;
     }
+
+
 }

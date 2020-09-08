@@ -22,8 +22,8 @@ public class Order {
     private String orderdescription;
 
     @ManyToMany
-    @JoinTable(name = "orderpayment",
-            joinColumns = @JoinColumn(name = "orderid"),
+    @JoinTable(name = "orderspayments",
+            joinColumns = @JoinColumn(name = "ordnum"),
             inverseJoinColumns = @JoinColumn(name = "paymentid"))
     private Set<Payment> payments = new HashSet<>();
 
@@ -31,8 +31,7 @@ public class Order {
 
     }
 
-    public Order(long ordnum, double ordamount, double advanceamount, Customer customer, String orderdescription) {
-        this.ordnum = ordnum;
+    public Order(double ordamount, double advanceamount, Customer customer, String orderdescription) {
         this.ordamount = ordamount;
         this.advanceamount = advanceamount;
         this.customer = customer;
@@ -77,5 +76,17 @@ public class Order {
 
     public void setOrderdescription(String orderdescription) {
         this.orderdescription = orderdescription;
+    }
+
+    public Set<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(Set<Payment> payments) {
+        this.payments = payments;
+    }
+
+    public void addPayments(Payment p){
+        this.payments.add(p);
     }
 }

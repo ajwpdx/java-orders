@@ -1,5 +1,7 @@
 package com.lambdaschool.crudyorders.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,30 +21,32 @@ public class Customer {
     private String custcountry;
     private String grade;
     private double openingamt;
-    private double receivingamt;
+    private double receiveamt;
     private double paymentamt;
     private double outstandingamt;
     private String phone;
 
     @ManyToOne
     @JoinColumn(name = "agentcode", nullable = false)
+    @JsonIgnoreProperties("customer")
     private Agent agent;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("customer")
     private List<Order> order = new ArrayList<>();
 
     public Customer() {
     }
 
-    public Customer(long custcode, String custname, String custcity, String workingarea, String custcountry, String grade, double openingamt, double receivingamt, double paymentamt, double outstandingamt, String phone, Agent agent) {
-        this.custcode = custcode;
+    public Customer(String custname, String custcity, String workingarea, String custcountry, String grade, double openingamt, double receiveamt, double paymentamt, double outstandingamt, String phone, Agent agent) {
+
         this.custname = custname;
         this.custcity = custcity;
         this.workingarea = workingarea;
         this.custcountry = custcountry;
         this.grade = grade;
         this.openingamt = openingamt;
-        this.receivingamt = receivingamt;
+        this.receiveamt = receiveamt;
         this.paymentamt = paymentamt;
         this.outstandingamt = outstandingamt;
         this.phone = phone;
@@ -105,12 +109,12 @@ public class Customer {
         this.openingamt = openingamt;
     }
 
-    public double getReceivingamt() {
-        return receivingamt;
+    public double getReceiveamt() {
+        return receiveamt;
     }
 
-    public void setReceivingamt(double receivingamt) {
-        this.receivingamt = receivingamt;
+    public void setReceiveamt(double receivingamt) {
+        this.receiveamt = receivingamt;
     }
 
     public double getPaymentamt() {

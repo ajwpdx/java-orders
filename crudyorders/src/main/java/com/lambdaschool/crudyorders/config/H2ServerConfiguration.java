@@ -69,4 +69,4 @@ public class H2ServerConfiguration
                 h2WebPort)
                 .start();
     }
-}}
+}
