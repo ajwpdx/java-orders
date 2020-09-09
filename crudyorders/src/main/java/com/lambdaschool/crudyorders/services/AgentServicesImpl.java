@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
+
 
 @Transactional
 @Service(value = "agentService")
@@ -14,6 +16,12 @@ public class AgentServicesImpl
 
     @Autowired
     AgentsRepository agentrepos;
+
+    @Override
+    public Agent findAgentById(long id) {
+        return agentrepos.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Agent " + id + " Not Found!"));
+    }
 
     @Transactional
     @Override

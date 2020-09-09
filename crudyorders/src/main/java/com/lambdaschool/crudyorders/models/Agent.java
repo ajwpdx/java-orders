@@ -27,8 +27,12 @@ public class Agent {
     private String country;
 
     @OneToMany(mappedBy = "agent", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties(value = "agent")
+    @JsonIgnoreProperties(value = "agent", allowSetters = true)
     private List<Customer> customers = new ArrayList<>();
+
+    public Agent() {
+
+    }
 
     public Agent(String agentname, String workingarea, double commission, String phone, String country) {
         this.agentname = agentname;
@@ -36,10 +40,7 @@ public class Agent {
         this.commission = commission;
         this.phone = phone;
         this.country = country;
-    }
-
-    public Agent() {
-
+        this.customers = getCustomers();
     }
 
     public long getAgentcode() {
@@ -90,6 +91,12 @@ public class Agent {
         this.country = country;
     }
 
+    public List<Customer> getCustomers() {
+        return customers;
+    }
 
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
+    }
 }
 
