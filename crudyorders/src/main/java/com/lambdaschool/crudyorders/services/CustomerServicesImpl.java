@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,12 @@ public class CustomerServicesImpl implements CustomerServices {
         List<Customer> list = new ArrayList<>();
         customerrepos.findAll().iterator().forEachRemaining(list::add);
         return list;
+    }
+
+    @Override
+    public Customer findCustomerById(long id) {
+        return customerrepos.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Customer " + id + " Not Found!"));
     }
 
     @Transactional
