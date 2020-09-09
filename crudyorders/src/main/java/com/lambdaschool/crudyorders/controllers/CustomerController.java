@@ -1,5 +1,6 @@
 package com.lambdaschool.crudyorders.controllers;
 
+import com.lambdaschool.crudyorders.models.Customer;
 import com.lambdaschool.crudyorders.models.Order;
 import com.lambdaschool.crudyorders.services.CustomerServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,9 @@ public class CustomerController
 
     // http://localhost:2019/customers/orders
     @GetMapping(value = "/orders", produces = "application/json")
-    public ResponseEntity<?> listAllOrders()
+    public ResponseEntity<?> listAllCustomers()
     {
-        List<Order> myList = customerServices.findAllOrders();
+        List<Customer> myList = customerServices.findAllCustomers();
         return new ResponseEntity<>(myList, HttpStatus.OK);
     }
 

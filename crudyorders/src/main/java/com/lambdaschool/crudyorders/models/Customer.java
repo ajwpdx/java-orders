@@ -28,12 +28,12 @@ public class Customer {
 
     @ManyToOne
     @JoinColumn(name = "agentcode", nullable = false)
-    @JsonIgnoreProperties("customer")
+    @JsonIgnoreProperties("orders")
     private Agent agent;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties("customer")
-    private List<Order> order = new ArrayList<>();
+    @JsonIgnoreProperties("orders")
+    private List<Order> orders = new ArrayList<>();
 
     public Customer() {
     }
@@ -51,6 +51,7 @@ public class Customer {
         this.outstandingamt = outstandingamt;
         this.phone = phone;
         this.agent = agent;
+        this.orders = getOrders();
     }
 
     public long getCustcode() {
@@ -147,5 +148,13 @@ public class Customer {
 
     public void setAgent(Agent agent) {
         this.agent = agent;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> order) {
+        this.orders = order;
     }
 }

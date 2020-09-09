@@ -8,13 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Transactional
 @Service(value = "customerServices")
-public class CustomerServicesImpl
-        implements CustomerServices {
+public class CustomerServicesImpl implements CustomerServices {
 
     @Autowired
     CustomersRepository customerrepos;
+
+    @Override
+    public List<Customer> findAllCustomers() {
+        List<Customer> list = new ArrayList<>();
+        customerrepos.findAll().iterator().forEachRemaining(list::add);
+        return list;
+    }
 
     @Transactional
     @Override
