@@ -32,6 +32,12 @@ public class CustomerServicesImpl implements CustomerServices {
                 .orElseThrow(() -> new EntityNotFoundException("Customer " + id + " Not Found!"));
     }
 
+    @Override
+    public List<Customer> findByNameLike(String subname) {
+        List<Customer> list = customerrepos.findByCustnameContainingIgnoreCase (subname);
+        return list;
+    }
+
     @Transactional
     @Override
     public Customer save(Customer customer) { return customerrepos.save(customer);}
