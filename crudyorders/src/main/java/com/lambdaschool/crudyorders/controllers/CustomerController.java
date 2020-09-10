@@ -22,7 +22,7 @@ public class CustomerController
     @Autowired
     CustomerServices customerServices;
 
-    // http://localhost:2019/customers/orders
+    // GET http://localhost:2019/customers/orders
     @GetMapping(value = "/orders", produces = "application/json")
     public ResponseEntity<?> listAllCustomers()
     {
@@ -30,7 +30,7 @@ public class CustomerController
         return new ResponseEntity<>(myList, HttpStatus.OK);
     }
 
-    // http://localhost:2019/customers/customer/10
+    // GET http://localhost:2019/customers/customer/10
     @GetMapping(value= "/customer/{id}", produces = "application/json")
     public ResponseEntity<?> findCustomerById(@PathVariable long id)
     {
@@ -38,7 +38,7 @@ public class CustomerController
         return new ResponseEntity<>(c, HttpStatus.OK);
     }
 
-    // http://localhost:2019/customers/namelike/hol
+    // GET http://localhost:2019/customers/namelike/hol
     @GetMapping(value = "namelike/{subname}", produces = "application/json")
     public ResponseEntity<?> findCustomerByNameLike(@PathVariable String subname)
     {
@@ -47,7 +47,7 @@ public class CustomerController
     }
 
 
-    // http://localhost:2019/customers/orders/count
+    // GET http://localhost:2019/customers/orders/count
     @GetMapping(value = "orders/count", produces = "application/json")
     public ResponseEntity<?> countCustomerOrders()
     {
@@ -76,7 +76,7 @@ public class CustomerController
 
         return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
     }
-
+    // PATCH  http://localhost:2019/customers/customer/10
     @PatchMapping(value = "/customer/{custcode}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> updatePartCustomer(@PathVariable long custcode, @RequestBody Customer updatedCustomer)
     {
@@ -84,4 +84,11 @@ public class CustomerController
         return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
     }
 
+    // DELETE http://localhost:2019/customers/customer/54
+    @DeleteMapping(value = "/customer/{custcode}")
+    public ResponseEntity<?> deleteCustomerById(@PathVariable long custcode)
+    {
+        customerServices.delete(custcode);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
