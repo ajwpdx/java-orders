@@ -47,7 +47,7 @@ public class CustomerServicesImpl implements CustomerServices {
     @Override
     public List<OrderCounts> countOrdersByCustomer() {
         List<OrderCounts> list = customerrepos.findOrderCounts();
-        return null;
+        return list;
     }
 
 
@@ -80,10 +80,88 @@ public class CustomerServicesImpl implements CustomerServices {
         newCustomer.getOrders().clear();
         for (Order o : customer.getOrders())
         {
-            Order newOrder = orderrepos.findById(o.getOrdnum())
-                    .orElseThrow(() -> new EntityNotFoundException("Order " + o.getOrdnum() + " Not Found!"));
+            Order newOrder = new Order(o.getOrdamount(), o.getAdvanceamount(), newCustomer, o.getOrderdescription());
+
+            newCustomer.getOrders().add(newOrder);
         }
 
         return customerrepos.save(newCustomer);
+    }
+
+    @Transactional
+    @Override
+    public Customer update(Customer customer, long custcode)
+    {
+        Customer updatedCustomer = findCustomerById(custcode);
+
+        if (customer.getCustname() != null)
+        {
+            updatedCustomer.setCustname(customer.getCustname());
+        }
+
+        if (customer.getCustcity() != null)
+        {
+            updatedCustomer.setCustcity(customer.getCustcity());
+        }
+
+        if (customer.getWorkingarea() != null)
+        {
+            updatedCustomer.setWorkingarea(customer.getWorkingarea());
+        }
+
+        if (customer.getCustcountry() != null)
+        {
+            updatedCustomer.setCustcountry(customer.getCustcountry());
+        }
+
+        if (customer.getGrade() != null)
+        {
+            updatedCustomer.setGrade(customer.getGrade());
+        }
+
+        if (customer.hasvalueforopeningamt)
+        {
+            updatedCustomer.setOpeningamt(customer.getOpeningamt());
+        }
+
+        if (customer.setReceiveamt() != null)
+        {
+            updatedCustomer.setReceiveamt(customer.getReceiveamt());
+        }
+
+        if (customer.setPaymentamt() != null)
+        {
+            updatedCustomer.setPaymentamt(customer.getPaymentamt());
+        }
+
+        if (customer.getOutstandingamt() != null)
+        {
+            updatedCustomer.setOutstandingamt(customer.getOutstandingamt());
+        }
+
+        if (customer.getPhone() != null)
+        {
+            updatedCustomer.setPhone(customer.getPhone());
+        }
+
+        if (customer.getAgent() != null)
+        {
+            updatedCustomer.setAgent(customer.getAgent());
+        }
+
+        if (customer.getOrders().size() > 0)
+        {
+            updatedCustomer.getOrders()
+                    .clear();
+            for (Order o : customer.getOrders())
+            {
+                Order newOrder = new Order(o.getOrdamount(), o.getAdvanceamount(), o.getCustomer(), o.getOrderdescription());
+
+                updatedCustomer.getOrders()
+                        .add(newOrder);
+            }
+        }
+
+        return customerrepos.save(updatedCustomer);
     }
 }

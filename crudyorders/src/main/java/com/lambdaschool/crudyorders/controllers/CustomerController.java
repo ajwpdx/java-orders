@@ -66,4 +66,22 @@ public class CustomerController
         responseHeaders.setLocation(newCustomerURI);
         return new ResponseEntity<>(newCustomer, responseHeaders, HttpStatus.CREATED); // data, header, status
     }
+
+    // PUT http://localhost:2019/customers/customer/10
+    @PutMapping(value = "/customer/{custcode}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<?> updateFullCustomer(@PathVariable long custcode, @Valid @RequestBody Customer updatedCustomer)
+    {
+        updatedCustomer.setCustcode(custcode);
+        updatedCustomer = customerServices.save(updatedCustomer); //validating our customer
+
+        return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
+    }
+
+    @PatchMapping(value = "/customer/{custcode}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<?> updatePartCustomer(@PathVariable long custcode, @RequestBody Customer updatedCustomer)
+    {
+        updatedCustomer = customerServices.update(updatedCustomer, custcode);
+        return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
+    }
+
 }

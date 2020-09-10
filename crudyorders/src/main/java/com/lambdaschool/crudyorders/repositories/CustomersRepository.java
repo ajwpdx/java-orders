@@ -11,7 +11,7 @@ public interface CustomersRepository extends CrudRepository<Customer, Long> {
 
     List<Customer> findByCustnameContainingIgnoreCase(String name);
 
-    @Query(value = "SELECT c.custname name, count(o.ordnum) countorders " +
+    @Query(value = "SELECT c.custname as name, count(o.ordnum) as countorders " +
             "FROM customers c LEFT JOIN orders o " +
             "ON c.custcode = o.custcode " +
             "GROUP BY c.custname", nativeQuery = true)

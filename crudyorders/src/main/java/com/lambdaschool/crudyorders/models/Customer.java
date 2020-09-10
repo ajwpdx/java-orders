@@ -6,8 +6,11 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+//double openingamt, double receiveamt, double paymentamt, double outstandingamt,
 @Entity
 @Table(name="customers")
+@JsonIgnoreProperties(value = "hasvalueforopeningamt")
 public class Customer {
 
     @Id
@@ -20,7 +23,11 @@ public class Customer {
     private String workingarea;
     private String custcountry;
     private String grade;
+
+    @Transient
+    public boolean hasvalueforopeningamt = false;
     private double openingamt;
+
     private double receiveamt;
     private double paymentamt;
     private double outstandingamt;
@@ -107,6 +114,7 @@ public class Customer {
     }
 
     public void setOpeningamt(double openingamt) {
+        hasvalueforopeningamt = true;
         this.openingamt = openingamt;
     }
 
