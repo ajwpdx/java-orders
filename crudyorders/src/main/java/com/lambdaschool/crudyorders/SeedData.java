@@ -1,6 +1,6 @@
 package com.lambdaschool.crudyorders;
 
-import com.github.javafaker.Faker;
+//import com.github.javafaker.Faker;
 import com.lambdaschool.crudyorders.models.Agent;
 import com.lambdaschool.crudyorders.models.Customer;
 import com.lambdaschool.crudyorders.models.Order;
