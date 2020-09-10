@@ -60,7 +60,14 @@ public class OrderServicesImpl implements OrderServices{
 
     @Transactional
     @Override
-    public void delete(long ordnum) {
-
+    public void delete(long ordnum)
+    {
+        if (orderrepos.findById(ordnum).isPresent())
+        {
+            orderrepos.deleteById(ordnum);
+        } else
+        {
+            throw new EntityNotFoundException("Order " + ordnum + " Not Found!");
+        }
     }
 }
