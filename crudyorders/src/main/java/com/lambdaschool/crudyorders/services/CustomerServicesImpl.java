@@ -124,17 +124,17 @@ public class CustomerServicesImpl implements CustomerServices {
             updatedCustomer.setOpeningamt(customer.getOpeningamt());
         }
 
-        if (customer.setReceiveamt() != null)
+        if (customer.hasvalueforreceiveamt)
         {
             updatedCustomer.setReceiveamt(customer.getReceiveamt());
         }
 
-        if (customer.setPaymentamt() != null)
+        if (customer.hasvalueforpaymentamt)
         {
             updatedCustomer.setPaymentamt(customer.getPaymentamt());
         }
 
-        if (customer.getOutstandingamt() != null)
+        if (customer.hasvalueforoutstandingamt)
         {
             updatedCustomer.setOutstandingamt(customer.getOutstandingamt());
         }

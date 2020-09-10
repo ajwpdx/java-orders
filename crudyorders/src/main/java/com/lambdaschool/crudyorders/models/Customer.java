@@ -1,5 +1,6 @@
 package com.lambdaschool.crudyorders.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -10,7 +11,6 @@ import java.util.List;
 //double openingamt, double receiveamt, double paymentamt, double outstandingamt,
 @Entity
 @Table(name="customers")
-@JsonIgnoreProperties(value = "hasvalueforopeningamt")
 public class Customer {
 
     @Id
@@ -25,11 +25,23 @@ public class Customer {
     private String grade;
 
     @Transient
+    @JsonIgnore
     public boolean hasvalueforopeningamt = false;
     private double openingamt;
 
+    @Transient
+    @JsonIgnore
+    public boolean hasvalueforreceiveamt = false;
     private double receiveamt;
+
+    @Transient
+    @JsonIgnore
+    public boolean hasvalueforpaymentamt = false;
     private double paymentamt;
+
+    @Transient
+    @JsonIgnore
+    public boolean hasvalueforoutstandingamt = false;
     private double outstandingamt;
     private String phone;
 
@@ -123,6 +135,7 @@ public class Customer {
     }
 
     public void setReceiveamt(double receivingamt) {
+        hasvalueforreceiveamt = true;
         this.receiveamt = receivingamt;
     }
 
@@ -131,6 +144,7 @@ public class Customer {
     }
 
     public void setPaymentamt(double paymentamt) {
+        hasvalueforpaymentamt = true;
         this.paymentamt = paymentamt;
     }
 
@@ -139,6 +153,7 @@ public class Customer {
     }
 
     public void setOutstandingamt(double outstandingamt) {
+        hasvalueforoutstandingamt = true;
         this.outstandingamt = outstandingamt;
     }
 
